@@ -1,0 +1,103 @@
+/* 容器 <div> - 需要定位下拉内容 */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+a:link, a:visited{
+    text-decoration: none;
+    color: black;
+}
+/* 下拉内容（默认隐藏）*/
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* 下拉购物车内容（默认隐藏）*/
+.dropdown-cart-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 250px;
+    box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* 下拉列表中的链接 */
+.dropdown-content a {
+    color: black;
+    padding: 5px 10px;
+    text-decoration: none;
+    display: block;
+}
+.cart-item{
+    padding: 7px;
+}
+/* 下拉购物车列表中的链接 */
+.cart-item a{
+    color: black;
+    font-size: 0.7em;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+.item_num{
+    width: 40px;
+    float: right;
+    outline-style: none ;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: "Microsoft soft";
+}
+.item_price{
+    padding-right: 50px;
+}
+/* 总价 */
+.total{
+    padding: 5px 10px;
+    font-size: 1em;
+    float: right;
+}
+
+/* 更改悬停时下拉链接的颜色 */
+.dropdown-content a:hover {background-color: #ddd;}
+.cart-item:hover {background-color: #ddd;}
+
+/* 悬停时显示下拉菜单 */
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-cart-content {display: block}
+
+
+/* 显示下拉内容时更改下拉按钮的背景颜色 */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+/* 导航 Home>Category>Product1 */
+.breadcrumb {
+    padding: 0 .5rem;
+}
+
+.breadcrumb ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.breadcrumb li:not(:last-child)::after {
+    display: inline-block;
+    margin: 0 .25rem;
+    content: ">>";
+}
+
+.ManageContainer{
+    display: block;
+    position: relative;
+    padding: 1rem;
+    margin: 1rem -15px 0;
+    border: solid #f7f7f9;
+}
