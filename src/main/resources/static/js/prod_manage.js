@@ -16,7 +16,7 @@ window.onload = function queryProductList(){
                     '            <td>'+res[i].price+'\n' +
                     '            <td>'+res[i].catid+'</td>\n' +
                     '            <td>'+res[i].description+'</td>\n' +
-                    '            <td><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" onclick="queryProductById(this)">Update</button>&nbsp;' +
+                    '            <td><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap" onclick="showQueryProductById(this)">Update</button>&nbsp;' +
                     '<button class="btn btn-danger btn-sm" onclick="deleteProd(this)">Delete</button></td>\n'
                 tbody.appendChild(newRow)
             }
@@ -27,25 +27,31 @@ window.onload = function queryProductList(){
     });
 }
 
-function queryProductById(obj){
-    var id = obj.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
+function queryProductById(id){
     $.ajax({
         url:"queryProductById/"+id,
         dataType:"json",
         type:"GET",
+        async:false,
         success:function (data) {
             console.log(data)
-            document.getElementById("pid").value = data.pid
-            document.getElementById("updatecatid").value=data.catid;
-            document.getElementById("updateprodName").value = data.prodName;
-            document.getElementById("updateprice").value = data.price;
-            document.getElementById("updatedescription").value = data.description;
-            document.getElementById("updatecustomFile").value = data.mainimage;
+            return data
         } ,
         error:function () {
             alert("查询失败");
         }
     });
+}
+
+function showQueryProductById(obj){
+    var id = obj.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML;
+    data = queryProductById(id)
+    document.getElementById("pid").value = data.pid
+    document.getElementById("updatecatid").value=data.catid;
+    document.getElementById("updateprodName").value = data.prodName;
+    document.getElementById("updateprice").value = data.price;
+    document.getElementById("updatedescription").value = data.description;
+    document.getElementById("updatecustomFile").value = data.mainimage;
 }
 
 function updateProd(){
