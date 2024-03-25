@@ -1,3 +1,4 @@
+
 window.addEventListener('unhandledrejection', (event) => {
     console.log(event.reason);
 });
@@ -75,11 +76,13 @@ function queryProductById(id){
 function addProdToCart(pid, num=1){
     var data = queryProductById(pid)
     var existingProduct = document.getElementById('itemDiv_'+data.pid);
+
     if(existingProduct){
         var quantityInput = existingProduct.querySelector('#itemButton_'+data.pid);
         var quantity = parseInt(quantityInput.value)+1;
         quantityInput.value = quantity;
         window.localStorage.setItem(data.pid,quantity)
+        alert("add product successfully.")
     }else{
         // console.log(data)
         var tbody = document.getElementById('cartList');
@@ -97,9 +100,10 @@ function addProdToCart(pid, num=1){
             '<input class="item_num" id="itemButton_'+data.pid+'" type="number" onClick="updateQuantity('+data.pid+')" value="'+num+'" min="0" max="999">' +
             '</div>'
         tbody.appendChild(newRow)
-
         window.localStorage.setItem(data.pid,num)
+        alert("add product successfully.")
     }
+
 }
 
 function updateQuantity(productId) {
@@ -130,3 +134,28 @@ function restoreCartList(){
 }
 // Restore the shopping list when the page is loaded
 document.addEventListener('DOMContentLoaded', restoreCartList);
+
+function validate(value) {
+    var pattern = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
+    if (value === '' || value === null) return false;
+    if (pattern.test(value)) {
+        alert("非法字符！");
+        return false;
+    }
+    return true;
+}
+
+function filterSqlStr(value) {
+    var str = "and,delete,or,exec,insert,select,union,update,count,*,',join,>,<";
+    var sqlStr = str.split(',');
+    var flag = true;
+
+    for (var i = 0; i < sqlStr.length; i++) {
+        if (value.toLowerCase().indexOf(sqlStr[i]) != -1) {
+            flag = false;
+            break;
+        }
+    }
+    alert(flag);
+    return flag;
+}

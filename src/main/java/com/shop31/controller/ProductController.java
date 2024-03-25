@@ -33,6 +33,13 @@ public class ProductController {
         return "Hello " + name;
     }
 
+    @PostMapping("/sign-in")
+    @ResponseBody
+    public String sign_in() {
+        return "hello";
+    }
+
+
     @Autowired
     ProductService prodService;
 

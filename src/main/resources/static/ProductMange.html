@@ -9,64 +9,9 @@
 </head>
 <body>
 <div class="container">
-  <div class="nav-scroller py-4 mb-3 border-bottom">
-    <nav class="nav nav-underline justify-content-between">
-      <a href="index.html"><img src="img/icon/logo.png" width="50px"/> ShoppingWebsite</a>
-      <div class="dropdown">
-        <button class="nav-item nav-link link-body-emphasis active" href="#">Category</button>
-        <div class="dropdown-content">
-          <a href="category.html">Digital Product</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="nav-item nav-link link-body-emphasis" href="#">Service</button>
-        <div class="dropdown-content">
-          <a href="ProductMange.html">ProdcutManage</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
-      </div>
-      <a class="nav-item nav-link link-body-emphasis" href="#">Like</a>
-      <div class="dropdown">
-        <button class="nav-item nav-link link-body-emphasis" href="#">Cart</button>
-        <div class="dropdown-cart-content">
-          <div class="cart-item">
-            <input class="form-check-input" type="checkbox" checked="checked" id="select_item_1">
-            <a href="#">Roku Express 4K+ | Roku Streaming Device 4K/HDR, Roku Voice Remote, Free & Live TV</a>
-            <div class="price">Price:$38<input class="item_num" id="item_1" type="number" onclick="updateTotal()" value="1" min="0" max="999"></div>
-          </div>
-          <div class="cart-item">
-            <input class="form-check-input" type="checkbox" checked="checked" id="select_item_2">
-            <a href="#">Nintendo Switch™ with Neon Blue and Neon Red Joy‑Con™</a>
-            <div class="price">Price:$38 <input class="item_num" id="item_2" type="number" onclick="updateTotal()" value="1" min="0" max="999"></div>
-          </div>
-          <div class="cart-item">
-            <input class="form-check-input" type="checkbox" checked="checked" id="select_item_3">
-            <a href="#">JBL Tune 510BT: Wireless On-Ear Headphones with Purebass Sound - Black</a>
-            <div class="price">Price:$38 <input class="item_num" id="item_3" type="number" onclick="updateTotal()" value="1" min="0" max="999"></div>
-          </div>
-          <div class="total" id="total">Total:$114</div>
-          <div class="cart-item"><button type="button" class="btn btn-warning btn-sm">Pay</button></div>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="nav-item nav-link link-body-emphasis" href="#">Your Account</button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
-      </div>
-
-    </nav>
+  <div class="headerpage">
+    <!--        公共header-->
   </div>
-  <nav aria-label="Breadcrumb" class="breadcrumb">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-    </ul>
-  </nav>
 </div>
 
 
@@ -77,11 +22,11 @@
       <form class="row g-3" >
           <div class="col-md-4">
             <label>Name</label>
-            <input type="text" class="form-control" id="prodName" placeholder="Product Name">
+            <input type="text" class="form-control" id="prodName" placeholder="Product Name" pattern="^[\u4E00-\u9FA5A-Za-z0-9_]+$">
           </div>
           <div class="col-md-4">
             <label>Price</label>
-            <input  type="number" class="form-control" id="price" placeholder="Product Price">
+            <input  type="number" class="form-control" id="price" placeholder="Product Price" pattern="/^\d*\.?\d+$/">
           </div>
           <div class="col-md-4">
             <label class="form-label">Select menu</label>
@@ -98,7 +43,7 @@
 <!--        </div>-->
         <div class="col-md-12">
           <label>Description</label>
-          <input type="text" class="form-control" id="description" placeholder="The Description of Product">
+          <input type="text" class="form-control" id="description" placeholder="The Description of Product" pattern="^[\u4E00-\u9FA5A-Za-z0-9_]+$">
         </div>
 
 <!--        <div class="mb-3 form-check">-->
@@ -202,5 +147,5 @@
 
 <script src="js/prod_manage.js" type="application/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
+<script language="JavaScript" type="application/javascript" src="js/header_and_footer.js"></script>
 </html>

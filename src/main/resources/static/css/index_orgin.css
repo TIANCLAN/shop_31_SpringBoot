@@ -36,24 +36,21 @@ a:link, a:visited{
 }
 .cart-item{
     padding: 7px;
-    
+    height: 120px;
     position: relative;
 }
 .item_operation{
     display: flex;
     bottom: 20px;
-	
 }
 
 .price{
     font-size: 0.8em;
     font-weight: bold;
-	width: 100px;
-	
 }
 .delete_button{
     margin-bottom: 20px;
-	margin-left: 40px;
+    margin-left: 100px;
 }
 .item_num{
     margin-bottom: 20px;
