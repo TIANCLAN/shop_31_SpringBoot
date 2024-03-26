@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class mainController {
     @RequestMapping("/mainpage")
     public String Index() {
-        System.out.println("fff");
-        return "index.html";
+        return "redirect:/index.html";
     }
 }

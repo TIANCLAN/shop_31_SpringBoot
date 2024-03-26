@@ -27,11 +27,26 @@ import java.util.List;
 public class ProductController {
 
     // http://127.0.0.1:8080/hello?name=lisi
-    @RequestMapping("/hello")
-    @ResponseBody
-    public String hello(@RequestParam(name = "name", defaultValue = "unknown user") String name) {
-        return "Hello " + name;
+//    @RequestMapping("/hello")
+//    @ResponseBody
+//    public String hello(@RequestParam(name = "name", defaultValue = "unknown user") String name) {
+//        return "Hello " + name;
+//    }
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
     }
+
+    @GetMapping("/admin/hello")
+    public String admin() {
+        return "admin";
+    }
+
+    @GetMapping("/user/hello")
+    public String user() {
+        return "user";
+    }
+
 
     @PostMapping("/sign-in")
     @ResponseBody

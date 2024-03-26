@@ -15,8 +15,6 @@ import java.util.regex.Pattern;
 
 /**
  * 防止XSS攻击的过滤器
- * @author LiWT
- * @Date 2021/6/23
  */
 public class XssFilter implements Filter {
     /**

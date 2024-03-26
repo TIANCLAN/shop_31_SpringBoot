@@ -20,7 +20,31 @@
 // }
 $("#loginBtn").click(function () {
     let _csrf = $.cookie('XSRF-TOKEN');
-    $.post('/doLogin',{username:$("#username").val(),password:$("#password").val(),_csrf:_csrf},function (data) {
-        location.assign("http://127.0.0.1:8080/")
-    })
+    // $.post('/doLogin',{
+    //     username:$("#username").val(),
+    //     password:$("#password").val(),
+    //     _csrf:_csrf
+    // },function (data) {
+    //     console.log(data)
+    // })
+    //     let _csrf = $.cookie('XSRF-TOKEN');
+    $.ajax({
+        url:"/doLogin",
+        dataType:"json",
+        type:"POST",
+        async:false,
+        data: {
+                username:$("#username").val(),
+                password:$("#password").val(),
+                _csrf:_csrf
+            },
+        success:function (data) {
+            role = data.authorities[0].authority
+            username = data.username
+            location.assign("http://127.0.0.1:8080/index.html?role="+role+"&username="+username)
+        } ,
+        error:function (data) {
+            alert("login failed");
+        }
+    });
 })

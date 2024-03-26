@@ -20,6 +20,20 @@ function updateTotal(){
     }
     document.getElementById("total").innerText="Price:$"+_total;
 }
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取url
+    var params = new URLSearchParams(window.location.search);
+    console.log(params)
+    // 获取"name"参数
+    var role = params.get('role');
+    var username = params.get('username')
+    console.log(username)
+
+    setTimeout(function (){
+        document.getElementById("user_role").innerText = "Welcome,"+ username
+    },1000)
+});
+
 
 window.onload = function queryProductList(){
     $.ajax({
