@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,8 +18,11 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+import javax.servlet.http.Cookie;
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 
@@ -52,6 +56,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler((req,resp,authentication)->{
                     Object principal = authentication.getPrincipal();
                     resp.setContentType("application/json;charset=utf-8");
+
+                    Cookie cookie = new Cookie("auth",passwordEncoder().encode("hash_token"));
+                    cookie.setSecure(true);
+                    cookie.setHttpOnly(true);
+                    cookie.setMaxAge(259200); // three day expiration
+                    resp.addCookie(cookie);
+
                     PrintWriter out = resp.getWriter();
                     out.write(new ObjectMapper().writeValueAsString(principal));
                     out.flush();
@@ -64,10 +75,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     out.flush();
                     out.close();
                 })
+
+                .and()
+                .rememberMe()
+                .key("echo")
+                .tokenRepository(jdbcTokenRepository())
+                .and()
+                .sessionManagement()
+                .sessionFixation().changeSessionId()
+
                 .and()
 
                 .logout()
                 .logoutUrl("/logout")
+//                .logoutSuccessUrl("/login.html")
                 .logoutSuccessHandler((req, resp, authentication) -> {
                     resp.setContentType("application/json;charset=utf-8");
                     PrintWriter out = resp.getWriter();
@@ -76,6 +97,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     out.close();
 //                    resp.getWriter().write("logout already");
                 })
+                .invalidateHttpSession(true)
+                .deleteCookies("JESESSIONID")
+                .deleteCookies("auth")
+
                 .and()
 //                .csrf().disable();
 //                .defaultSuccessUrl("http://127.0.0.1:8080/mainpage")
@@ -99,6 +124,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     DataSource dataSource;
+
+    @Bean
+    JdbcTokenRepositoryImpl jdbcTokenRepository() {
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        return jdbcTokenRepository;
+    }
+
+
     @Override
     @Bean
     protected UserDetailsService userDetailsService() {
@@ -110,6 +144,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         if (!manager.userExists("ZhiyueLU@cuhk.com")) {
             manager.createUser(User.withUsername("ZhiyueLU@cuhk.com").password(passwordEncoder().encode("123")).roles("user").build());
         }
+
         return manager;
     }
     @Bean

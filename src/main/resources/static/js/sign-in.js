@@ -20,6 +20,9 @@
 // }
 $("#loginBtn").click(function () {
     let _csrf = $.cookie('XSRF-TOKEN');
+    let rememberme = 'off'
+    if($('#flexCheckDefault').is(':checked'))
+        rememberme = 'on'
     // $.post('/doLogin',{
     //     username:$("#username").val(),
     //     password:$("#password").val(),
@@ -36,12 +39,12 @@ $("#loginBtn").click(function () {
         data: {
                 username:$("#username").val(),
                 password:$("#password").val(),
-                _csrf:_csrf
+                _csrf:_csrf,
+                'remember-me': rememberme
             },
         success:function (data) {
-            role = data.authorities[0].authority
             username = data.username
-            location.assign("http://127.0.0.1:8080/index.html?role="+role+"&username="+username)
+            location.assign("http://127.0.0.1:8080/index.html?username="+username)
         } ,
         error:function (data) {
             alert("login failed");

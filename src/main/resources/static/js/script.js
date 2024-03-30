@@ -149,6 +149,33 @@ function restoreCartList(){
 // Restore the shopping list when the page is loaded
 document.addEventListener('DOMContentLoaded', restoreCartList);
 
+$("#logoutBtn").click(function () {
+    console.log("click the logout")
+    $.get('/logout',{
+    },function (data) {
+        print(data)
+        location.assign("http://127.0.0.1:8080/index.html")
+    })
+})
+
+function logout(){
+    let _csrf = $.cookie('XSRF-TOKEN');
+    $.ajax({
+        url:"/logout",
+        dataType:"json",
+        type:"POST",
+        data:{
+            _csrf:_csrf
+        },
+        success:function (data) {
+            console.log("logout successfully")
+            location.assign("http://127.0.0.1:8080/index.html")
+        } ,
+        error:function (e) {
+            console.log(e,'error')
+        }
+    });
+}
 function validate(value) {
     var pattern = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
     if (value === '' || value === null) return false;
