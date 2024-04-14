@@ -154,7 +154,7 @@ $("#logoutBtn").click(function () {
     $.get('/logout',{
     },function (data) {
         print(data)
-        location.assign("http://127.0.0.1:8080/index.html")
+        location.assign("/index.html")
     })
 })
 
@@ -169,10 +169,11 @@ function logout(){
         },
         success:function (data) {
             console.log("logout successfully")
-            location.assign("http://127.0.0.1:8080/index.html")
+            location.assign("/index.html")
         } ,
         error:function (e) {
             console.log(e,'error')
+            location.assign("/index.html")
         }
     });
 }

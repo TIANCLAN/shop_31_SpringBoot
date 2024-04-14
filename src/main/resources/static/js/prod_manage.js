@@ -81,8 +81,11 @@ function updateProd(){
 }
 
 function addProd(){
+    let _csrf = $.cookie('XSRF-TOKEN');
     var inputData =  {"catid" : $("#catid").val(),"prodName" : $("#prodName").val(),
-        "price" : $("#price").val(),"description" :  $("#description").val() ,"mainimage":$("#customFile").val()}
+        "price" : $("#price").val(),"description" :  $("#description").val() ,"mainimage":$("#customFile").val(),
+        "_csrf" : _csrf
+    }
     console.log(JSON.stringify(inputData))
     $.ajax({
         type: "POST",

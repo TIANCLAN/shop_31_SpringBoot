@@ -25,6 +25,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import javax.servlet.http.Cookie;
 import javax.sql.DataSource;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
 
 @Configuration
 @EnableWebSecurity
@@ -38,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**","/img/**");
+        web.ignoring().antMatchers("/js/**", "/css/**","/img/**","/addProd");
     }
 
     @Override
@@ -88,19 +89,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .logout()
                 .logoutUrl("/logout")
-//                .logoutSuccessUrl("/login.html")
-                .logoutSuccessHandler((req, resp, authentication) -> {
-                    resp.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = resp.getWriter();
-                    out.write("注销成功");
-                    out.flush();
-                    out.close();
+                .logoutSuccessUrl("/login.html")
+//                .logoutSuccessHandler((req, resp, authentication) -> {
+//                    resp.setContentType("application/json;charset=utf-8");
+//                    resp.sendRedirect("/login.html");
+//                    PrintWriter out = resp.getWriter();
+//                    out.write("注销成功");
+//                    out.flush();
+//                    out.close();
+
 //                    resp.getWriter().write("logout already");
-                })
+//                })
                 .invalidateHttpSession(true)
                 .deleteCookies("JESESSIONID")
                 .deleteCookies("auth")
-
+                .deleteCookies("XSRF-TOKEN")
                 .and()
 //                .csrf().disable();
 //                .defaultSuccessUrl("http://127.0.0.1:8080/mainpage")

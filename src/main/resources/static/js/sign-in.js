@@ -44,7 +44,7 @@ $("#loginBtn").click(function () {
             },
         success:function (data) {
             username = data.username
-            location.assign("http://127.0.0.1:8080/index.html?username="+username)
+            location.assign("/index.html?username="+username)
         } ,
         error:function (data) {
             alert("login failed");
