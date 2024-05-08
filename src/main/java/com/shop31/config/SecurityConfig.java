@@ -147,6 +147,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         if (!manager.userExists("ZhiyueLU@cuhk.com")) {
             manager.createUser(User.withUsername("ZhiyueLU@cuhk.com").password(passwordEncoder().encode("123")).roles("user").build());
         }
+        if (!manager.userExists("test@cuhk.test.com")) {
+            manager.createUser(User.withUsername("test@cuhk.test.com").password(passwordEncoder().encode("testaccount123abc")).roles("user").build());
+        }
 
         return manager;
     }
